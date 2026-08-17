@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <title>92PKR OFFICIAL HACK</title>
+    <title>92PKR WILD KING</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Poppins:wght@700;900&display=swap');
         
@@ -17,10 +17,23 @@
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
-        body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Orbitron', sans-serif; background: #000; }
+        body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Orbitron', sans-serif; background: #05010a; }
         
-        #bg-iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
+        /* Background Game Iframe Container */
+        #iframe-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; background: #000;
+        }
+        #bg-iframe {
+            width: 100%; height: 100%; border: none; display: block;
+        }
         
+        /* Fallback Overlay if Iframe blocks */
+        .iframe-fallback {
+            position: absolute; inset: 0; background: radial-gradient(circle at center, #1a0b2e 0%, #05010a 100%);
+            z-index: -1; display: flex; align-items: center; justify-content: center; color: var(--glow-cyan); font-size: 10px;
+        }
+
         #scan-laser {
             position: fixed; top: -20px; left: 0; width: 100%; height: 6px;
             background: linear-gradient(90deg, transparent, var(--glow-cyan), var(--glow-purple), transparent);
@@ -60,7 +73,7 @@
         @keyframes counter-spin { 100% { transform: rotate(-360deg); } }
         
         .panel-wrapper {
-            position: fixed; top: 15%; left: 10px; display: none; z-index: 30; touch-action: auto;
+            position: fixed; top: 15%; left: 10px; display: flex; z-index: 30; touch-action: auto;
             flex-direction: column; align-items: center;
         }
         
@@ -286,8 +299,13 @@
     </style>
 </head>
 <body>
+    <!-- Background Iframe with Fallback -->
+    <div id="iframe-container">
+        <div class="iframe-fallback">LOADING SYSTEM BACKGROUND...</div>
+        <iframe id="bg-iframe" src="https://www.92pkr4.com/#/register?invitationCode=446251637459" allow="autoplay; encrypted-media"></iframe>
+    </div>
+
     <div id="scan-laser"></div>
-    <iframe id="bg-iframe" src="https://www.92pkr4.com/#/register?invitationCode=446251637459"></iframe>
     
     <div id="floating-icon">
         <div class="inner-circle">START<br>HACK</div>
@@ -307,7 +325,7 @@
         </div>
         <div class="timer-capsule" id="timer-display">30s</div>
         <div class="panel-box" id="alpha-panel">
-            <div class="title">92PKR OFFICIAL HACK</div>
+            <div class="title">92PKR WILD KING</div>
             <div class="mode-sub" id="mode-text-display">WINGO 30S SERVER</div>
             <div class="period-display">PERIOD: <span id="seq-display">-</span></div>
             <div class="live-status-tag" id="live-status">[*] SYSTEM READY</div>
@@ -347,4 +365,153 @@
                 <button class="close-btn" id="btn-close-settings">SAVE SYSTEM</button>
             </div>
             
-            <!-- HISTORY M
+            <!-- HISTORY MODAL -->
+            <div class="modal-overlay" id="history-modal">
+                <div class="modal-title">PREDICTION HISTORY</div>
+                <div class="history-container" id="history-list"></div>
+                <button class="close-btn" id="btn-close-history">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "luffy2244";
+        
+        const floatingIcon = document.getElementById('floating-icon');
+        const panelRoot = document.getElementById('panel-root');
+        const authModal = document.getElementById('auth-modal');
+        const passInput = document.getElementById('pass-input');
+        const btnLogin = document.getElementById('btn-login');
+        const authError = document.getElementById('auth-error');
+        const scanLaser = document.getElementById('scan-laser');
+        
+        const timerDisplay = document.getElementById('timer-display');
+        const seqDisplay = document.getElementById('seq-display');
+        const predictionType = document.getElementById('prediction-type');
+        const mainBallWrapper = document.getElementById('main-ball-wrapper');
+        const mainBall = document.getElementById('main-ball');
+        const mainBallNum = document.getElementById('main-ball-num');
+        const modeTextDisplay = document.getElementById('mode-text-display');
+        
+        const btnMinimize = document.getElementById('btn-minimize');
+        const btnLock = document.getElementById('btn-lock');
+        const btnOpenSettings = document.getElementById('btn-open-settings');
+        const settingsModal = document.getElementById('settings-modal');
+        const btnCloseSettings = document.getElementById('btn-close-settings');
+        const modeSelect = document.getElementById('mode-select');
+        
+        const btnShowHistory = document.getElementById('btn-show-history');
+        const historyModal = document.getElementById('history-modal');
+        const btnCloseHistory = document.getElementById('btn-close-history');
+        const historyList = document.getElementById('history-list');
+
+        let currentMode = '30S';
+        let historyData = [];
+
+        floatingIcon.addEventListener('click', () => {
+            scanLaser.classList.add('active-scan');
+            setTimeout(() => { scanLaser.classList.remove('active-scan'); }, 3500);
+            panelRoot.style.display = 'flex';
+            floatingIcon.style.display = 'none';
+        });
+
+        btnMinimize.addEventListener('click', () => {
+            panelRoot.style.display = 'none';
+            floatingIcon.style.display = 'flex';
+        });
+
+        btnLock.addEventListener('click', () => {
+            panelRoot.style.display = 'none';
+            floatingIcon.style.display = 'flex';
+            authModal.style.display = 'flex';
+            passInput.value = '';
+            authError.innerText = '';
+        });
+
+        btnLogin.addEventListener('click', () => {
+            if(passInput.value === CORRECT_PASSWORD) {
+                authModal.style.display = 'none';
+                authError.innerText = '';
+            } else {
+                authError.innerText = 'INVALID PASSWORD!';
+            }
+        });
+
+        btnOpenSettings.addEventListener('click', () => { settingsModal.style.display = 'flex'; });
+        btnCloseSettings.addEventListener('click', () => {
+            currentMode = modeSelect.value;
+            modeTextDisplay.innerText = `WINGO ${currentMode} SERVER`;
+            settingsModal.style.display = 'none';
+        });
+
+        btnShowHistory.addEventListener('click', () => {
+            historyList.innerHTML = '';
+            if(historyData.length === 0) {
+                historyList.innerHTML = '<div style="color:#777; font-size:8px; text-align:center; margin-top:20px;">NO HISTORY YET</div>';
+            } else {
+                historyData.forEach(item => {
+                    let row = document.createElement('div');
+                    row.className = 'history-row';
+                    let ballClass = getBallClass(item.num);
+                    row.innerHTML = `
+                        <div class="history-seq">${item.period}</div>
+                        <div class="history-result-info">
+                            <span class="history-type ${item.type === 'BIG' ? 'type-big' : 'type-small'}">${item.type}</span>
+                            <div class="history-ball ${ballClass}"><span class="ball-num-text">${item.num}</span></div>
+                        </div>
+                    `;
+                    historyList.appendChild(row);
+                });
+            }
+            historyModal.style.display = 'flex';
+        });
+        btnCloseHistory.addEventListener('click', () => { historyModal.style.display = 'none'; });
+
+        function getBallClass(num) {
+            if(num === 0) return 'ball-v-red';
+            if(num === 5) return 'ball-v-green';
+            if([1,3,7,9].includes(num)) return 'ball-green';
+            return 'ball-red';
+        }
+
+        function generatePrediction(periodStr) {
+            let randNum = Math.floor(Math.random() * 10);
+            let type = randNum >= 5 ? 'BIG' : 'SMALL';
+            
+            predictionType.innerText = type;
+            mainBallWrapper.style.display = 'flex';
+            mainBall.className = 'wingo-ball ' + getBallClass(randNum);
+            mainBallNum.innerText = randNum;
+
+            historyData.unshift({ period: periodStr.slice(-4), num: randNum, type: type });
+            if(historyData.length > 20) historyData.pop();
+        }
+
+        let lastPeriod = "";
+        function updateTimerAndPeriod() {
+            let now = new Date();
+            let seconds = now.getSeconds();
+            let totalSeconds = now.getMinutes() * 60 + seconds;
+            
+            let rem = currentMode === '30S' ? (30 - (totalSeconds % 30)) : (60 - (seconds));
+            timerDisplay.innerText = rem + 's';
+
+            let y = now.getFullYear();
+            let m = String(now.getMonth() + 1).padStart(2, '0');
+            let d = String(now.getDate()).padStart(2, '0');
+            let totalPeriods = currentMode === '30S' ? Math.floor(totalSeconds / 30) : now.getMinutes();
+            let periodNum = (now.getHours() * (currentMode === '30S' ? 120 : 60)) + totalPeriods + 1;
+            let periodStr = `${y}${m}${d}1000${10000 + periodNum}`;
+
+            if(periodStr !== lastPeriod) {
+                lastPeriod = periodStr;
+                seqDisplay.innerText = periodStr.slice(-6);
+                generatePrediction(periodStr);
+            }
+        }
+
+        setInterval(updateTimerAndPeriod, 1000);
+        updateTimerAndPeriod();
+    </script>
+</body>
+</html>
